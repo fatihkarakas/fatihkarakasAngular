@@ -90,12 +90,18 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "assets/Content/Test.css",
+              "assets/stylesheets/363f9277.main.css"
             ],
-            "scripts": []
+            "scripts": [
+              "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c0e5ac2d-7d54-4afa-8525-5468972bed80"
   }
 }
