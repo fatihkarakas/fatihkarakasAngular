@@ -3,13 +3,11 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './app/layout/layout/layout.component';
-import { provideHttpClient , withInterceptorsFromDi } from '@angular/common/http';
+import { HakkimdaComponent } from './app/pages/hakkimda/hakkimda.component';
+import { IletisimComponent } from './app/pages/iletisim/iletisim.component';
+import { KategorilerComponent } from './app/pages/kategoriler/kategoriler.component';
 
 
-const routes: Routes = [
-  { path: '', component: LayoutComponent }, // Ana Sayfa
-
-];
 
 bootstrapApplication(AppComponent, appConfig, )
   .catch((err) => console.error(err));
