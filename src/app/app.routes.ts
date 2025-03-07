@@ -10,9 +10,9 @@ import { AnasayfaComponent } from './pages/anasayfa/anasayfa.component';
 export const routes: Routes = [
     { path: '', component: AnasayfaComponent },
     { path: 'Anasayfa', component: AnasayfaComponent },
-    { path: 'hakkimda', component: HakkimdaComponent },
-    { path: 'iletisim', component: IletisimComponent },    
-    { path: 'kategoriler/:id', component: KategorilerComponent },
+    { path: 'Hakkimda', component: HakkimdaComponent },
+    { path: 'Iletisim', component: IletisimComponent },    
+    { path: 'Kategoriler/:id', component: KategorilerComponent },
     { path: 'YoutubeVideolarim', component: YoutubeComponent },
     { path: 'Referanslar', component: ReferanslarComponent },
 ];

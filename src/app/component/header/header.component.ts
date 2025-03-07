@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
-import { MenuSubItems } from '../../models/menusubitems';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +8,7 @@ import { MenuSubItems } from '../../models/menusubitems';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
-  manuSubItems: MenuSubItems[] = [];
-
-  constructor(private menuService : MenuService) { }
-  
-  ngOnInit() {
-    this.menuService.menuleriYukle().subscribe((data) => {
-      this.manuSubItems = data;
-      console.log(this.manuSubItems);
-    });
-  }
-
+export class HeaderComponent {
+  menuSubItems = computed(() => this.menuService.menusubitems());
+  constructor(private menuService : MenuService) {} 
 }

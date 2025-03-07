@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit } from '@angular/core';
 import { PostIceriklerService } from '../../services/post-icerikler.service';
-import { PostItems } from '../../models/post-item-models';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,14 +8,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './post-listesi-ana-sayfa.component.html',
   styleUrl: './post-listesi-ana-sayfa.component.css'
 })
-export class PostListesiAnaSayfaComponent implements OnInit {
+export class PostListesiAnaSayfaComponent {
+  postItems = computed(() => this.postService.postItems());
 
-  postItems: PostItems[] = [];
-  constructor(private posticerikler: PostIceriklerService) { }
-
-  ngOnInit() {
-    this.posticerikler.postIcerikleriniGetir().subscribe((data) => {
-      if (data) this.postItems = data;
-    });
-  }
+  constructor(private postService: PostIceriklerService) {}
+ 
 }
