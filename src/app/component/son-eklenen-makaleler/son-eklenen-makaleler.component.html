@@ -1,1 +1,40 @@
-<p>son-eklenen-makaleler works!</p>
+<div class="widget-posts push-down-15">
+    <h5>Son Yazılanlar / Popüler Yazılar</h5>
+
+    <ul class="nav  nav-tabs">
+        <li class="active">
+            <a href="#recent-posts" data-toggle="tab"><span class="glyphicon  glyphicon-time"></span>&nbsp;Son Yazılan
+            </a>
+        </li>
+        <li><a href="#popular-posts" data-toggle="tab"><span class="glyphicon  glyphicon-flash"></span>&nbsp;Popüler
+            </a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane  fade  in  active" id="recent-posts">
+
+        @for(sonYazilanMakeleler of sonYazilanMakeleler; track sonYazilanMakeleler.id){
+            <div class="push-down-15">
+                <img class="wp-post-image_kucuk" src="{{sonYazilanMakeleler.picturePath}}">
+                <h5>
+                    <a href="/Makaleler/MsSql-ile-Pivot-Table-Kullanmak/10">{{sonYazilanMakeleler.title}}</a>
+                </h5>
+                <span class="widget-posts__time">bir yıl önce</span>
+            </div>
+        }
+        </div>
+
+        <div class="tab-pane  fade" id="popular-posts">
+
+            @for(sonYazilanMakeleler of populerMakeleler; track sonYazilanMakeleler.id){
+                <div class="push-down-15">
+                    <img class="wp-post-image_kucuk" src="{{sonYazilanMakeleler.picturePath}}">
+                    <h5>
+                        <a href="/Makaleler/MsSql-ile-Pivot-Table-Kullanmak/10">{{sonYazilanMakeleler.title}}</a>
+                    </h5>
+                    <span class="widget-posts__time">bir yıl önce</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>

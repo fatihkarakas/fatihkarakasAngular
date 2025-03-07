@@ -1,0 +1,9 @@
+<h6>Son Yazılan Makale</h6>
+<img class="wp-post-image" src="{{sonYazilanMakele.picturePath}}"> 
+
+<h5>
+    <a routerLink="/Makale/{{sonYazilanMakele.id}}>{{sonYazilanMakele.title}}"></a>
+</h5>
+<span class="widget-posts__time">
+    <p [innerHTML]="sonYazilanMakele.shortContent"></p>
+</span>
