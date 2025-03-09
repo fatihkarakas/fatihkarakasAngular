@@ -12,8 +12,17 @@ export const routes: Routes = [
     { path: 'Anasayfa', component: AnasayfaComponent, data: { title: 'Anasayfa' } },
     { path: 'Hakkimda', component: HakkimdaComponent, data: { title: 'Hakkımda' } },
     { path: 'Iletisim', component: IletisimComponent, data: { title: 'İletişim' } },
-    { path: 'Kategoriler/:id', component: KategorilerComponent, data: { title: 'Kategoriler' } },
+    { 
+        path: 'Kategoriler/:id', 
+        component: KategorilerComponent, 
+        data: { title: 'Kategoriler', prerender: true },
+        
+    },
     { path: 'YoutubeVideolarim', component: YoutubeComponent, data: { title: 'Youtube Videolarım' } },
     { path: 'Referanslar', component: ReferanslarComponent, data: { title: 'Referanslar' } },
-    { path:'MakaleDetay/:id', component: MakaleDetayComponent, data: { title: 'Makale Detay' } }
+    { 
+        path: 'MakaleDetay/:id', 
+        component: MakaleDetayComponent, 
+        data: { title: 'Makale Detay', prerender: true }  // prerendering için işaretleme
+    }
 ];
