@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { environment } from '../environments/environment.prod';
 import { yotubeEnvironment } from '../environments/youtube-enviroment';
 import { HttpClient } from '@angular/common/http';
+import { YouTubeSearchResponse } from '../models/youtube-models';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class YoutubeVideoService {
       channelId: yotubeEnvironment.YOUTUBE_CHANNEL_ID,
       part: 'snippet',
       order: 'date',
-      maxResults: '6', // Sayfada gösterilecek video sayısı
+      //maxResults: '6', // Sayfada gösterilecek video sayısı
       pageToken: pageToken
     };
 

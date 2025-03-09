@@ -1,1 +1,17 @@
-<p>referanslar works!</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div *ngFor="let referans of referanslar()">
+      <div class="card">
+        <h5 class="card-header" [innerHTML]="referans.baslik"></h5>
+        <div class="card-body">
+         <img [src]="referans.resimAdres" [alt]="referans.baslik" style="max-width: 100%" />
+          <p class="card-text" [innerHTML]="referans.aciklama"></p>
+       <span><b>Kurum    : </b></span><span [innerHTML]="referans.kurum"></span><br />
+       <span><b>Platform : </b></span><span [innerHTML]="referans.platform"></span><br />
+       <span><b>Tarihler : </b></span><span [innerHTML]="referans.calismaSuresi"></span><br />
+        </div>
+        <div class="card-footer text-muted">
+         <a [href]="referans.linUrl">Ziyaret Et</a>
+        </div>
+      </div>
+    </div>
+  </div>

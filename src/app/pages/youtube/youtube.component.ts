@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { YouTubeSearchResult } from '../../models/youtube-models';
 
 @Component({
   selector: 'app-youtube',
@@ -13,7 +15,7 @@ export class YoutubeComponent {
   nextPageToken: string | null = null;
   prevPageToken: string | null = null;
 
-  constructor(private videoService: YoutubeVideoService) {}
+  constructor(private videoService: YoutubeVideoService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.loadVideos();
@@ -22,6 +24,7 @@ export class YoutubeComponent {
   loadVideos(pageToken: string = ''): void {
     this.videoService.getVideos(pageToken).subscribe(data => {
       this.videos = data.videos;
+      console.log(this.videos);
       this.nextPageToken = data.nextPageToken;
       this.prevPageToken = data.prevPageToken;
     });
@@ -37,5 +40,15 @@ export class YoutubeComponent {
     if (this.prevPageToken) {
       this.loadVideos(this.prevPageToken);
     }
+  }
+
+  getSafeUrl(videoId: string) {
+    if (!videoId) {
+      console.error('Video ID Hatalı');
+      return null; 
+    }
+  
+    const url = `https://www.youtube.com/embed/${videoId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url); 
   }
 }
