@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { PostItems } from '../../models/post-item-models';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
+import { PostIceriklerService } from '../../services/post-icerikler.service';
 
 @Component({
   selector: 'app-makale-detay',
@@ -15,12 +16,14 @@ import { environment } from '../../environments/environment.prod';
 export class MakaleDetayComponent implements OnInit {
   makaleId = 0;
   makaleDetay!: PostItems;
+  makaleBilgisi = computed(() => this.postService.postItems())!;
   fullContent: SafeHtml | null = null;
   apiUrl = environment.apiUrl + 'post/getbyid/';
   apiUrlOkundu = environment.apiUrl + 'post/guncelle/';
 
   constructor(private route: ActivatedRoute,
-    private sanitizer: DomSanitizer, private http: HttpClient
+    private sanitizer: DomSanitizer, private http: HttpClient,
+    private postService: PostIceriklerService
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +37,14 @@ export class MakaleDetayComponent implements OnInit {
   }
 
   async makaleDetayiniGetir(postId: number): Promise<void> {
-    const apiUrlYeni = this.apiUrl + postId;
-    await this.http.get<PostItems>(apiUrlYeni).subscribe((data) => {
-      this.makaleDetay = data;
+    const makale = this.makaleBilgisi();
+    if (makale && makale.length > 0) {
+      this.makaleDetay = makale.find((makale) => makale.id === postId)!;
       if (this.makaleDetay) {
         this.fullContent = this.sanitizer.bypassSecurityTrustHtml(this.makaleDetay.fullContent);
       }
-    });
+      return;
+    }
   }
 
   async okunduBilgisiGuncelle(postId: number): Promise<void> {

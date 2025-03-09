@@ -14,19 +14,16 @@ import { environment } from '../../environments/environment.prod';
 export class SonEklenenMakalelerComponent implements OnInit {
     apiurl = environment.apiUrl + 'post/getall';
     sonYazilanMakeleler!: PostItems[];
+    readonly #tumMakaleler = computed(() => this.postService.postItems());
     populerMakeleler!: PostItems[];
-    constructor() {}
 
+    constructor(private postService: PostIceriklerService) {}
+  
     ngOnInit(): void {
-       fetch(this.apiurl).then(response => {
-          if(!response.ok){
-              throw new Error('Veri çekme başarısız oldu.');
-          }
-          return response.json();
-        }).then(data => {
-          this.sonYazilanMakeleler = data.posts.sort((a: PostItems, b: PostItems) => b.id - a.id).slice(0, 3);
-          this.populerMakeleler = data.posts.sort((a: PostItems, b: PostItems) => b.viewCount - a.viewCount).slice(0, 3);
+        const tumMakaleler=this.#tumMakaleler();
+        if(tumMakaleler && tumMakaleler.length > 0){
+            this.sonYazilanMakeleler = tumMakaleler.sort((a: PostItems, b: PostItems) => b.id - a.id).slice(0, 3);
+            this.populerMakeleler = tumMakaleler.sort((a: PostItems, b: PostItems) => b.viewCount - a.viewCount).slice(0, 3);
         }
-        ).catch(error => console.error('Hata:', error));
     }
 }

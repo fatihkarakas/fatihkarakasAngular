@@ -11,23 +11,25 @@ import { PostItems } from '../../models/post-item-models';
   styleUrl: './kategoriler.component.css'
 })
 export class KategorilerComponent implements OnInit {
-  kategoriId : number =1;
+  kategoriId: number = 1;
   postItems: PostItems[] = [];
+  tumMakaleler = computed(() => this.postService.postItems());
 
   constructor(private postService: PostIceriklerService,
     private route: ActivatedRoute
-  ) {}
-ngOnInit() {
-  this.route.params.subscribe(params => {
-    this.kategoriId = params['id'];
-    this.loadPosts();
-  });
-}
+  ) { }
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.kategoriId = params['id'];
+      this.loadPosts(Number(this.kategoriId));
+    });
+  }
 
-loadPosts(): void {
- this.postService.postKategorileriniGetir(this.kategoriId).subscribe(data => {
-    this.postItems = data;
-  });
-}
-
+  loadPosts(kategoriId:number): void {
+    const makaleler = this.tumMakaleler();
+    if (makaleler && makaleler.length > 0) {
+      this.postItems = makaleler.filter((makale) => makale.categoryId === kategoriId);
+      return;
+    }
+  }
 }

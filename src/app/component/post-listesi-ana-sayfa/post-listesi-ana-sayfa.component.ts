@@ -18,29 +18,32 @@ export class PostListesiAnaSayfaComponent implements OnInit {
 apiUrl = environment.apiUrl + 'post/getall';
 makaleler : PostItems[] = [];
 
-makaleListesi = computed(() => this.#servis.postItems());
+makaleListesi = linkedSignal(() => this.#servis.postItems());
 
 
   constructor() {}
 
-  ngOnInit() {
-    // fetch(this.apiUrl)
-    //   .then(response => {
-    //     if (!response.ok) {
-    //       throw new Error('Veri çekme başarısız oldu.');
-    //     }
-    //     return response.json();
-    //   })
-    //   .then(data => {
-    //     this.makaleler = data.posts;
-    //   })
-    //   .catch(error => console.error('Hata:', error));
-    this.makaleListesiGetir();
+  async ngOnInit() {
+   this.makaleListesiGetir();
   }
 
-  makaleListesiGetir() {
-    const makaleler = this.#servis.postItems();
-    this.makaleler = makaleler;
-  }
- 
+   makaleListesiGetir() {
+      const makaleler = this.#servis.postItems();
+    if(makaleler && makaleler.length > 0) {
+      this.makaleler = makaleler;
+    }
+    else {
+      fetch(this.apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Veri çekme başarısız oldu.');
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.makaleler = data.posts;
+        })
+        .catch(error => console.error('Hata:', error));
+    }
+    }
 }

@@ -12,28 +12,15 @@ import { environment } from '../../environments/environment.prod';
   styleUrl: './son-eklenen-makale.component.css'
 })
 export class SonEklenenMakaleComponent implements OnInit {
- 
-  apiUrl = environment.apiUrl + 'post/getall';
   sonYazilanMakele!: PostItems;
-  constructor(private postService : PostIceriklerService) {}
+  readonly #tumMakaleler = computed(() => this.postService
+    .postItems());
+  constructor(private postService: PostIceriklerService) { }
 
   ngOnInit(): void {
-    fetch(this.apiUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Veri çekme başarısız oldu.');
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.posts && data.posts.length > 0) {
-          this.sonYazilanMakele = data.posts.reduce((prev: PostItems, current: PostItems) => 
-            prev.id > current.id ? prev : current
-          );
-        }
-      })
-      .catch(error => console.error('Hata:', error));
+    const makaleler = this.#tumMakaleler();
+    if (makaleler && makaleler.length > 0) {
+      this.sonYazilanMakele = makaleler.sort((a: PostItems, b: PostItems) => b.id - a.id)[0];
+    }
   }
-  
-  
 }

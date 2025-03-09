@@ -17,8 +17,7 @@ export class PostIceriklerService {
   constructor(private http: HttpClient) {}
   postItems = signal<PostItems[]>([]);
 
-  // Veriyi localStorage'a kaydediyoruz ve süre kontrolü yapıyoruz
-  postIcerikleriniGetir(): void {
+  async postIcerikleriniGetir(): Promise<void> {
     const currentTime = new Date().getTime();
     const storedData = localStorage.getItem(this.localStorageKey);
     
@@ -31,7 +30,7 @@ export class PostIceriklerService {
         return;
       }
       else {
-        localStorage.removeItem(this.localStorageKey);
+        localStorage.clear();
       }
     }
     this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
@@ -42,7 +41,7 @@ export class PostIceriklerService {
         }));
       })
     ).subscribe((data) => {
-      this.postItems.set(data.posts); 
+     this.postItems.set(data.posts); 
     });
   }
 

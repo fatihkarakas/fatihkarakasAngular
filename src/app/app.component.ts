@@ -18,8 +18,8 @@ export class AppComponent implements OnInit {
 
   constructor(private menuService: MenuService, private postService: PostIceriklerService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
      this.menuService.menuleriYukle();
-    this.postService.postIcerikleriniGetir();
+    await this.postService.postIcerikleriniGetir();
   }
 }
