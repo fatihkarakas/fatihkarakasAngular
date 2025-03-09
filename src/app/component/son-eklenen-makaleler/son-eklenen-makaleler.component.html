@@ -15,9 +15,9 @@
 
         @for(sonYazilanMakeleler of sonYazilanMakeleler; track sonYazilanMakeleler.id){
             <div class="push-down-15">
-                <img class="wp-post-image_kucuk" src="{{sonYazilanMakeleler.picturePath}}">
+                <img class="wp-post-image_kucuk" [src]="sonYazilanMakeleler.picturePath">
                 <h5>
-                    <a href="/Makaleler/MsSql-ile-Pivot-Table-Kullanmak/10">{{sonYazilanMakeleler.title}}</a>
+                    <a [routerLink]="['/MakaleDetay', sonYazilanMakeleler.id]">{{sonYazilanMakeleler.title}}</a>
                 </h5>
                 <span class="widget-posts__time">bir yıl önce</span>
             </div>
@@ -25,12 +25,11 @@
         </div>
 
         <div class="tab-pane  fade" id="popular-posts">
-
             @for(sonYazilanMakeleler of populerMakeleler; track sonYazilanMakeleler.id){
                 <div class="push-down-15">
-                    <img class="wp-post-image_kucuk" src="{{sonYazilanMakeleler.picturePath}}">
+                    <img class="wp-post-image_kucuk" [src]="sonYazilanMakeleler.picturePath">
                     <h5>
-                        <a href="/Makaleler/MsSql-ile-Pivot-Table-Kullanmak/10">{{sonYazilanMakeleler.title}}</a>
+                        <a [routerLink]="['/MakaleDetay', sonYazilanMakeleler.id]">{{sonYazilanMakeleler.title}}</a>
                     </h5>
                     <span class="widget-posts__time">bir yıl önce</span>
                 </div>

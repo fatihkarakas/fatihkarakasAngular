@@ -1,18 +1,19 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from './layout/layout/layout.component';
 import { HakkimdaComponent } from './pages/hakkimda/hakkimda.component';
 import { IletisimComponent } from './pages/iletisim/iletisim.component';
 import { KategorilerComponent } from './pages/kategoriler/kategoriler.component';
 import { YoutubeComponent } from './pages/youtube/youtube.component';
 import { ReferanslarComponent } from './pages/referanslar/referanslar.component';
 import { AnasayfaComponent } from './pages/anasayfa/anasayfa.component';
+import { MakaleDetayComponent } from './pages/makale-detay/makale-detay.component';
 
 export const routes: Routes = [
-    { path: '', component: AnasayfaComponent },
-    { path: 'Anasayfa', component: AnasayfaComponent },
-    { path: 'Hakkimda', component: HakkimdaComponent },
-    { path: 'Iletisim', component: IletisimComponent },    
-    { path: 'Kategoriler/:id', component: KategorilerComponent },
-    { path: 'YoutubeVideolarim', component: YoutubeComponent },
-    { path: 'Referanslar', component: ReferanslarComponent },
+    { path: '', redirectTo: 'Anasayfa', pathMatch: 'full' },
+    { path: 'Anasayfa', component: AnasayfaComponent, data: { title: 'Anasayfa' } },
+    { path: 'Hakkimda', component: HakkimdaComponent, data: { title: 'Hakkımda' } },
+    { path: 'Iletisim', component: IletisimComponent, data: { title: 'İletişim' } },
+    { path: 'Kategoriler/:id', component: KategorilerComponent, data: { title: 'Kategoriler' } },
+    { path: 'YoutubeVideolarim', component: YoutubeComponent, data: { title: 'Youtube Videolarım' } },
+    { path: 'Referanslar', component: ReferanslarComponent, data: { title: 'Referanslar' } },
+    { path:'MakaleDetay/:id', component: MakaleDetayComponent, data: { title: 'Makale Detay' } }
 ];

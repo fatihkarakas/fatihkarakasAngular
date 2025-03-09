@@ -10,7 +10,8 @@
                             <span class="meta__author">
     
                                 <img src="/images/fatihkarakas.jpeg" alt="Meta avatar" width="30" height="30">
-                                <a href="#">Fatih KARAKAŞ</a> --&gt; <a href="/{{post.categoryName}}/{{post.categoryId}}">
+                                <a href="#">Fatih KARAKAŞ</a> --&gt;                                 
+                                <a [routerLink]="['/Kategoriler',  post.categoryId]">
                                     {{post.categoryName}}
                                 </a> </span>
                             <span class="meta__date"><span
@@ -30,15 +31,15 @@
             <div class="col-xs-10  col-xs-offset-1">
     
                 <div class="post-content--front-page">
-                    <h3 class="front-page-title"><a href="/Makale/{{post.title}}/{{post.id}}">
+                    <h3 class="front-page-title">
+                        <a [routerLink]="['/MakaleDetay',  post.id]">
                             {{post.title}}
                         </a>
-    
                     </h3>
                     <p [innerHTML]="post.shortContent"></p>
                 </div>
     
-                <a href="/Makale/{{post.title}}/{{post.id}}">
+                <a [routerLink]="['/MakaleDetay',  post.id]">
                     <div class="read-more">
                         Devamını Oku
                         <div class="read-more__arrow">

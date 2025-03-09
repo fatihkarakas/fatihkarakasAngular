@@ -1,26 +1,28 @@
-@for (post of postItems(); track post.id) {
+@for (post of makaleler; track post.id) {
 <div class="boxed  push-down-45">
-
     <div class="meta">
-        <img class="wp-post-image" src="{{post.picturePath}}">
+        <img class="wp-post-image" [src]="post.picturePath" [alt]="post.title">
         <div class="meta__container">
             <div class="row">
                 <div class="col-xs-12  col-sm-8">
                     <div class="meta__info">
                         <span class="meta__author">
-
                             <img src="/images/fatihkarakas.jpeg" alt="Meta avatar" width="30" height="30">
-                            <a href="#">Fatih KARAKAŞ</a> --&gt; <a href="/{{post.categoryName}}/{{post.categoryId}}">
-                                {{post.categoryName}}
-                            </a> </span>
-                        <span class="meta__date"><span
-                                class="glyphicon glyphicon-calendar"></span>{{ post.createDate ? (post.createDate | date:'dd.MM.yyyy HH:mm') : '' }}</span>
+                            <a href="#">Fatih KARAKAŞ</a> --&gt;
+                            <a [routerLink]="['/Kategoriler',  post.categoryId]">
+                                {{ post.categoryName }}
+                            </a>
+                        </span>
+                        <span class="meta__date">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            {{ post.createDate ?
+                            (post.createDate | date:'dd.MM.yyyy HH:mm') : '' }}
+                        </span>
                     </div>
                 </div>
                 <div class="col-xs-12  col-sm-4">
                     <div class="meta__comments">
                         <span>{{post.viewCount}} Kez Okundu</span>&nbsp;
-                        <a href="Makale/MsSql ile Pivot Table Kullanmak/7#disqus_thread"></a>
                     </div>
                 </div>
             </div>
@@ -30,15 +32,15 @@
         <div class="col-xs-10  col-xs-offset-1">
 
             <div class="post-content--front-page">
-                <h3 class="front-page-title"><a href="/Makale/{{post.title}}/{{post.id}}">
+                <h3 class="front-page-title">
+                    <a [routerLink]="['/MakaleDetay',  post.id]">
                         {{post.title}}
                     </a>
-
                 </h3>
                 <p [innerHTML]="post.shortContent"></p>
             </div>
 
-            <a href="/Makale/{{post.title}}/{{post.id}}">
+            <a [routerLink]="['/MakaleDetay',  post.id]">
                 <div class="read-more">
                     Devamını Oku
                     <div class="read-more__arrow">

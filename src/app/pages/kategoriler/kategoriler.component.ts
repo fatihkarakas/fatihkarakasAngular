@@ -1,12 +1,12 @@
 import { Component, computed, OnInit } from '@angular/core';
 import { PostIceriklerService } from '../../services/post-icerikler.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PostItems } from '../../models/post-item-models';
 
 @Component({
   selector: 'app-kategoriler',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './kategoriler.component.html',
   styleUrl: './kategoriler.component.css'
 })
@@ -19,7 +19,6 @@ export class KategorilerComponent implements OnInit {
   ) {}
 ngOnInit() {
   this.route.params.subscribe(params => {
-    debugger;
     this.kategoriId = params['id'];
     this.loadPosts();
   });
@@ -28,7 +27,6 @@ ngOnInit() {
 loadPosts(): void {
  this.postService.postKategorileriniGetir(this.kategoriId).subscribe(data => {
     this.postItems = data;
-    debugger;
   });
 }
 
