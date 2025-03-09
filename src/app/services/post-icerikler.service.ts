@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../environments/environment.prod';
-import { map, Observable } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { PostItems } from '../models/post-item-models';
 
 @Injectable({
@@ -9,26 +9,57 @@ import { PostItems } from '../models/post-item-models';
 })
 export class PostIceriklerService {
 
-  constructor(private http: HttpClient) { } 
+  private localStorageKey = 'postsDataFatihKarakas';
+  private apiUrl = environment.apiUrl + 'post/';
+  private getAll = environment.apiUrl + 'post/getall';
+  private geyByID = environment.apiUrl + 'post/getbyid/';
 
-  apiUrl = environment.apiUrl + 'post/getall';
-
+  constructor(private http: HttpClient) {}
   postItems = signal<PostItems[]>([]);
 
+  // Veriyi localStorage'a kaydediyoruz ve süre kontrolü yapıyoruz
+  postIcerikleriniGetir(): void {
+    const currentTime = new Date().getTime();
+    const storedData = localStorage.getItem(this.localStorageKey);
+    
+    if (storedData) {
+      const { posts, timestamp } = JSON.parse(storedData);
+      const elapsedTime = currentTime - timestamp;
 
-postIcerikleriniGetir(): void {
-  this.http.get<{ posts: PostItems[] }>(this.apiUrl).subscribe((data) => {
-    this.postItems.set(data.posts);
-  });  
-  // return this.http.get<{ posts: PostItems[] }>(this.apiUrl).pipe(
-  //   map(response => response.posts) 
-  // );
-}
+      if (elapsedTime < 3600000) {
+        this.postItems.set(posts); 
+        return;
+      }
+      else {
+        localStorage.removeItem(this.localStorageKey);
+      }
+    }
+    this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
+      tap(data => {
+        localStorage.setItem(this.localStorageKey, JSON.stringify({
+          posts: data.posts,
+          timestamp: currentTime 
+        }));
+      })
+    ).subscribe((data) => {
+      this.postItems.set(data.posts); 
+    });
+  }
 
-postKategorileriniGetir(kategoriId: number): Observable<PostItems[]>  {
-   return this.http.get<{ posts: PostItems[] }>(this.apiUrl).pipe(
-     map(response => response.posts.filter(post => post.categoryId == kategoriId)) 
-   );
-}
+  postKategorileriniGetir(kategoriId: number): Observable<PostItems[]> {
+    return this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
+      map(response => response.posts.filter(post => post.categoryId == kategoriId))
+    );
+  }
 
+  postGetirByMakaleId(makaleId: number): Observable<PostItems[]> {
+    return this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
+      map(response => response.posts.filter(post => post.id == makaleId))
+    );
+  }
+
+  postDetayiniGetir(postId: number): Observable<PostItems> {
+    this.geyByID = this.geyByID + postId;
+    return this.http.get<PostItems>(this.geyByID);
+  }
 }

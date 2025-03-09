@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
-import { SolmenutumuComponent } from '../../component/solmenutumu/solmenutumu.component';
 import { HeaderComponent } from '../../component/header/header.component';
+import { SagTarafBilgilendirmeComponent } from '../../component/sag-taraf-bilgilendirme/sag-taraf-bilgilendirme.component';
 
 @Component({
   selector: 'app-layout',
   templateUrl: "./layout.component.html",
   styleUrl: './layout.component.css',
-  imports: [RouterOutlet, SolmenutumuComponent, HeaderComponent],
+  imports: [RouterOutlet, SagTarafBilgilendirmeComponent, HeaderComponent],
 })
 
-export class LayoutComponent{  
-}
+export class LayoutComponent{ }
+ 
 

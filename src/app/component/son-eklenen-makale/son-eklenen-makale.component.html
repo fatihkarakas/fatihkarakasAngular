@@ -1,9 +1,18 @@
-<h6>Son Yazılan Makale</h6>
-<img class="wp-post-image" src="{{sonYazilanMakele.picturePath}}"> 
+<div *ngIf="sonYazilanMakele; else loading">
+    <h6>Son Yazılan Makale</h6>
+    <img class="wp-post-image" [src]="sonYazilanMakele.picturePath" alt="Son Yazılan Makale"> 
+  
+    <h5>
+      <a [routerLink]="['/MakaleDetay', sonYazilanMakele.id]">{{sonYazilanMakele.title}}</a>
+    </h5>
+    
+    <span class="widget-posts__time">
+      <p [innerHTML]="sonYazilanMakele.shortContent"></p>
+    </span>
+  </div>
+  
 
-<h5>
-    <a routerLink="/Makale/{{sonYazilanMakele.id}}>{{sonYazilanMakele.title}}"></a>
-</h5>
-<span class="widget-posts__time">
-    <p [innerHTML]="sonYazilanMakele.shortContent"></p>
-</span>
+  <ng-template #loading>
+    <p>Veri yükleniyor...</p>
+  </ng-template>
+  

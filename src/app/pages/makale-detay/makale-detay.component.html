@@ -1,0 +1,44 @@
+<div *ngIf="makaleDetay; else loading">
+    <div class="boxed  push-down-45">
+    
+        <div class="meta">
+            <img class="wp-post-image" [src]="makaleDetay.picturePath" [alt]="makaleDetay.title">
+            <div class="meta__container">
+                <div class="row">
+                    <div class="col-xs-12  col-sm-8">
+                        <div class="meta__info">
+                            <span class="meta__author">
+    
+                                <img src="/images/fatihkarakas.jpeg" alt="Meta avatar" width="30" height="30">
+                                <a href="#">Fatih KARAKAŞ</a> --&gt;                                 
+                                <a [routerLink]="['/Kategoriler',  makaleDetay.categoryId]">
+                                    {{makaleDetay.categoryName}}
+                                </a> </span>
+                            <span class="meta__date"><span
+                                    class="glyphicon glyphicon-calendar"></span>{{ makaleDetay.createDate ? (makaleDetay.createDate | date:'dd.MM.yyyy HH:mm') : '' }}</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12  col-sm-4">
+                        <div class="meta__comments">
+                            <span>{{makaleDetay.viewCount}} Kez Okundu</span>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-10  col-xs-offset-1  col-md-8  col-md-offset-2  push-down-60">    
+                <div class="post-content">
+                    <h3>{{makaleDetay.title}}</h3>
+                    <p [innerHTML]="makaleDetay.shortContent"></p>
+                    <p [innerHTML]="fullContent"></p>
+                </div>    
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <p>Veri yükleniyor...</p>
+  </ng-template>
+  
