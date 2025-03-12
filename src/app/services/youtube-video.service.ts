@@ -19,7 +19,7 @@ export class YoutubeVideoService {
       channelId: yotubeEnvironment.YOUTUBE_CHANNEL_ID,
       part: 'snippet',
       order: 'date',
-      //maxResults: '6', // Sayfada gösterilecek video sayısı
+      maxResults: '6',
       pageToken: pageToken
     };
 

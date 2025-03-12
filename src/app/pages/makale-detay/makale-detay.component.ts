@@ -1,4 +1,4 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostItems } from '../../models/post-item-models';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,9 @@ import { PostIceriklerService } from '../../services/post-icerikler.service';
   selector: 'app-makale-detay',
   imports: [RouterLink, CommonModule],
   templateUrl: './makale-detay.component.html',
-  styleUrl: './makale-detay.component.css'
+  styleUrl: './makale-detay.component.css',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class MakaleDetayComponent implements OnInit {
   makaleId = 0;

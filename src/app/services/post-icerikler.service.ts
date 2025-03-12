@@ -14,42 +14,34 @@ export class PostIceriklerService {
   private getAll = environment.apiUrl + 'post/getall';
   private geyByID = environment.apiUrl + 'post/getbyid/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.postIcerikleriniGetir();
+  }
   postItems = signal<PostItems[]>([]);
 
-  async postIcerikleriniGetir(): Promise<void> {
-    const currentTime = new Date().getTime();
+  postIcerikleriniGetir(): void {
     const storedData = localStorage.getItem(this.localStorageKey);
-    
     if (storedData) {
       const { posts, timestamp } = JSON.parse(storedData);
-      const elapsedTime = currentTime - timestamp;
-
-      if (elapsedTime < 3600000) {
-        this.postItems.set(posts); 
+      if (new Date().getTime() - timestamp < 3600000) {
+        this.postItems.set(posts);
         return;
       }
-      else {
-        localStorage.clear();
-      }
     }
-    this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
-      tap(data => {
-        localStorage.setItem(this.localStorageKey, JSON.stringify({
-          posts: data.posts,
-          timestamp: currentTime 
-        }));
-      })
-    ).subscribe((data) => {
-     this.postItems.set(data.posts); 
-    });
+    this.postDegerleriniGetir();
   }
 
-  postKategorileriniGetir(kategoriId: number): Observable<PostItems[]> {
-    return this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
-      map(response => response.posts.filter(post => post.categoryId == kategoriId))
-    );
+
+  postDegerleriniGetir(): void {
+    this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(
+      tap(data => localStorage.setItem(this.localStorageKey, JSON.stringify({
+        posts: data.posts,
+        timestamp: new Date().getTime()
+      })))
+    ).subscribe(data => this.postItems.set(data.posts));
   }
+
+
 
   postGetirByMakaleId(makaleId: number): Observable<PostItems[]> {
     return this.http.get<{ posts: PostItems[] }>(this.getAll).pipe(

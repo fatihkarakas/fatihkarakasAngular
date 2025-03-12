@@ -1,1 +1,17 @@
-<p>iletisim works!</p>
+<form  [formGroup]="mesajForm" (ngSubmit)="onSubmit()">
+  <label for="tamAd">Ad Soyad:</label>
+  <input id="tamAd" formControlName="tamAd" type="text" required />
+
+  <label for="eposta">E-Posta:</label>
+  <input id="eposta" formControlName="eposta" type="email" required />
+  <label for="mesaj">Mesaj:</label>
+  <textarea id="mesaj" formControlName="mesaj" required></textarea>
+  <label for="ipAdres">IP Adresiniz:</label>
+  <input id="ipAdres" formControlName="ipAdres" type="text" [disabled]="true" />
+
+  <label for="verificationCode">Doğrulama Kodu: ({{ verificationCode }})</label>
+  <input id="verificationCode" formControlName="verificationCode" type="text" required />
+
+  <button type="submit">Gönder</button>
+</form>
+

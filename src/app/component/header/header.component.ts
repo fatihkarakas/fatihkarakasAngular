@@ -1,4 +1,4 @@
-import { Component, effect, computed } from '@angular/core';
+import { Component, effect, computed, linkedSignal, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
 
@@ -6,9 +6,13 @@ import { MenuService } from '../../services/menu.service';
   selector: 'app-header',
   imports: [RouterLink],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class HeaderComponent {
-  menuSubItems = computed(() => this.menuService.menusubitems());
-  constructor(private menuService : MenuService) {} 
+  menuSubItems = linkedSignal(() => this.menuService.menusubitems());
+  constructor(private menuService : MenuService) {
+    menuService.menuleriYukle();
+  }
 }

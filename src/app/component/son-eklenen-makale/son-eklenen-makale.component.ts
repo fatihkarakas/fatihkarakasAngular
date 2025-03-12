@@ -1,19 +1,20 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, linkedSignal, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostIceriklerService } from '../../services/post-icerikler.service';
 import { PostItems } from '../../models/post-item-models';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../environments/environment.prod';
 
 @Component({
   selector: 'app-son-eklenen-makale',
   imports: [RouterLink, CommonModule],
   templateUrl: './son-eklenen-makale.component.html',
-  styleUrl: './son-eklenen-makale.component.css'
+  styleUrl: './son-eklenen-makale.component.css',
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.None
 })
 export class SonEklenenMakaleComponent implements OnInit {
   sonYazilanMakele!: PostItems;
-  readonly #tumMakaleler = computed(() => this.postService
+  readonly #tumMakaleler = linkedSignal(() => this.postService
     .postItems());
   constructor(private postService: PostIceriklerService) { }
 

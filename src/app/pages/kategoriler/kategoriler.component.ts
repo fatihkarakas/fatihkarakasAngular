@@ -1,4 +1,4 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostIceriklerService } from '../../services/post-icerikler.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,10 @@ import { PostItems } from '../../models/post-item-models';
   selector: 'app-kategoriler',
   imports: [CommonModule, RouterLink],
   templateUrl: './kategoriler.component.html',
-  styleUrl: './kategoriler.component.css'
+  styleUrl: './kategoriler.component.css',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class KategorilerComponent implements OnInit {
   kategoriId: number = 1;

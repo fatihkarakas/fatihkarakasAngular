@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { YoutubeVideoService } from '../../services/youtube-video.service';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { YouTubeSearchResult } from '../../models/youtube-models';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-youtube',
   imports: [CommonModule],
   templateUrl: './youtube.component.html',
-  styleUrl: './youtube.component.css'
+  styleUrl: './youtube.component.css',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class YoutubeComponent {
   videos: any[] = [];
   nextPageToken: string | null = null;
   prevPageToken: string | null = null;
 
-  constructor(private videoService: YoutubeVideoService, private sanitizer: DomSanitizer) {}
+  constructor(private videoService: YoutubeVideoService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.loadVideos();
@@ -45,10 +46,10 @@ export class YoutubeComponent {
   getSafeUrl(videoId: string) {
     if (!videoId) {
       console.error('Video ID Hatalı');
-      return null; 
+      return null;
     }
-  
+
     const url = `https://www.youtube.com/embed/${videoId}`;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url); 
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
